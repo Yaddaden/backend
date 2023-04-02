@@ -6,13 +6,13 @@ exports.likeSauce = (req, res, next) =>{
     .then((sauce) => {
         console.log(sauce)
         //faire un like = 1
-        //Si le userLiked est false et si like ===1
+        //Si le userLiked n'est pas présent dans le tableau et si la requete envois like=1
         if(!sauce.usersLiked.includes(req.body.userId) && req.body.like === 1){
             //Mise a jour sauce BDD
             Sauce.updateOne(
                 {_id : req.params.id},//Chercher l'objet dans BDD
                 {
-                    $inc: {likes: 1},
+                    $inc: {likes: 1},//incrémenter
                     $push: {usersLiked : req.body.userId}
                 }
             )
